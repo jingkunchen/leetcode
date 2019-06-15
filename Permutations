@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void internalPermute(vector<int> &num, int index, vector<int> &perm, vector<vector<int> > &result) {
+        int size = num.size();
+        
+        if (size == index) {
+            result.push_back(perm);
+        }
+        else {
+            for (int i = index; i < size; ++i) {
+                swap(num[index], num[i]);
+                perm.push_back(num[index]);
+                internalPermute(num, index + 1, perm, result);
+                perm.pop_back();
+                swap(num[index], num[i]);
+            }
+        }
+    }
+    
+    vector<vector<int> > permute(vector<int> &num) {
+        vector<vector<int> > result;
+        vector<int> perm;
+        
+        internalPermute(num, 0, perm, result);
+        
+        return result;
+    }
+};
